@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Teacher Dashboard</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root{
+            --bg:#f5f8ff;
+            --brand:#1b78d6;
+            --brand-dark:#1558a8;
+            --ink:#111;
+            --panel:#e7f2ff;
+            --muted:#0b3e74;
+            --success:#1c7c38;
+            --success-dark:#115423;
+            --warning:#b56a00;
+            --resolved:#0b5a86;
+        }
+        *{box-sizing:border-box}
+        body{
+            margin:0;
+            font-family:'Poppins',sans-serif;
+            background:var(--bg);
+            color:var(--ink);
+        }
+        .split{
+            display:grid;
+            grid-template-columns:260px auto;
+            min-height:100vh;
+        }
+        /* LEFT NAV */
+        .sidenav{
+            background:linear-gradient(135deg,var(--brand),var(--brand-dark));
+            color:#fff;
+            padding:40px 26px;
+            display:flex;
+            flex-direction:column;
+            gap:28px;
+        }
+        .sidenav h2{
+            margin:0 0 8px 0;
+            font-size:26px;
+            font-weight:900;
+            letter-spacing:-.3px;
+        }
+        .navlink{
+            font-weight:700;
+            font-size:15px;
+        }
+        .navlink a{
+            color:#fff;
+            text-decoration:none;
+        }
+        .navlink a:hover{text-decoration:underline}
+
+        /* RIGHT CONTENT */
+        .content{
+            padding:40px 50px;
+            overflow:auto;
+        }
+        .title{
+            font-size:25px;
+            font-weight:800;
+            color:var(--muted);
+            margin:0 0 18px 0;
+            letter-spacing:.2px;
+        }
+
+        /* TABLES */
+        table{
+            width:100%;
+            border-collapse:separate;
+            border-spacing:0 10px;
+            font-weight:600;
+            font-size:15px;
+        }
+        th,td{
+            padding:14px 12px;
+            text-align:center;
+            background:var(--panel);
+            border-radius:10px;
+        }
+        th{
+            background:var(--brand);
+            color:#fff;
+            text-transform:uppercase;
+            letter-spacing:.6px;
+        }
+        td:first-child, th:first-child{
+            text-align:left;
+            padding-left:18px;
+        }
+
+        /* STATUS CHIPS + ACTIONS */
+        .chip{
+            display:inline-block;
+            padding:6px 12px;
+            border-radius:999px;
+            font-size:13px;
+            font-weight:800;
+        }
+        .chip.pending{ background:#fff6e5; color:var(--warning); }
+        .chip.reviewed{ background:#eaf7ec; color:var(--success); }
+        .chip.resolved{ background:#e6f3ff; color:var(--resolved); }
+
+        .action{
+            color:var(--brand);
+            font-weight:700;
+            text-decoration:none;
+            margin:0 6px;
+        }
+        .action:hover{text-decoration:underline}
+
+        /* UTIL */
+        .spacer{height:28px}
+        .empty{
+            font-weight:700;color:#555;padding:8px 0;
+        }
+
+        @media (max-width: 900px){
+            .split{grid-template-columns:1fr}
+            .sidenav{
+                flex-direction:row;
+                align-items:center;
+                justify-content:space-between;
+                gap:12px;
+            }
+            .sidenav h2{font-size:20px}
+        }
+    </style>
+</head>
+<body>
+<div class="split">
+
+    <!-- LEFT -->
+    <aside class="sidenav">
+        <div>
+            <h2>Teacher Panel</h2>
+            <div style="opacity:.9;font-weight:600;">Dashboard</div>
+        </div>
+        <div class="navlink"><a href="/teacher_dashboard">Home</a></div>
+        <div class="navlink"><a href="/logout">Logout</a></div>
+    </aside>
+
+    <!-- RIGHT -->
+    <main class="content">
+
+        <!-- QUERIES -->
+        <h3 class="title">Rechecking Queries</h3>
+        {% if queries and queries|length > 0 %}
+        <table aria-label="Rechecking Queries">
+            <thead>
+            <tr>
+                <th>Student</th>
+                <th>Roll</th>
+                <th>Subject</th>
+                <th>Status</th>
+                <th>Actions</th>
+                <th>Raised At</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for q in queries %}
+            <tr>
+                <td>{{ q.student.name }}</td>
+                <td>{{ q.student.roll_number }}</td>
+                <td>{{ q.subject }}</td>
+                <td>
+                    <span class="chip {% if q.status=='Pending' %}pending{% elif q.status=='Reviewed' %}reviewed{% else %}resolved{% endif %}">
+                        {{ q.status }}
+                    </span>
+                </td>
+                <td>
+                    <a class="action" href="{{ url_for('update_recheck_status', qid=q.id, status='Reviewed') }}">Reviewed</a> |
+                    <a class="action" href="{{ url_for('update_recheck_status', qid=q.id, status='Resolved') }}">Resolved</a>
+                </td>
+                <td>{{ q.created_at }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+            <div class="empty">No rechecking queries yet.</div>
+        {% endif %}
+
+        <div class="spacer"></div>
+
+        <!-- STUDENTS -->
+        <h3 class="title">Students</h3>
+        {% if students and students|length > 0 %}
+        <table aria-label="Students">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Roll</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Percentage</th>
+                <th>Grade</th>
+                <th>Edit</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for s in students %}
+            <tr>
+                <td>{{ s.name }}</td>
+                <td>{{ s.roll_number }}</td>
+                <td>{{ s.email }}</td>
+                <td>{{ s.phone }}</td>
+                <td>{{ '%.2f' % s.percentage() }}%</td>
+                <td>{{ s.grade() }}</td>
+                <td>
+                    <a class="action" href="/edit_student/{{ s.id }}">Edit</a>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+            <div class="empty">No students found.</div>
+        {% endif %}
+
+    </main>
+</div>
+</body>
+</html>

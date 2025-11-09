@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Registration</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #e3f5fe 0%, #d0e6f9 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding:40px;
+        }
+        .container {
+            width:520px;
+            max-width:95%;
+            background:#fff;
+            border-radius:24px;
+            padding:45px 40px;
+            box-shadow:0 14px 40px rgba(0,0,0,0.15);
+        }
+        h2 {
+            text-align:center;
+            margin-bottom:35px;
+            font-size:2rem;
+            font-weight:900;
+            color:#0b3e74;
+        }
+        input {
+            width:100%;
+            padding:15px;
+            margin-bottom:20px;
+            border:2px solid #b8d8f9;
+            border-radius:12px;
+            font-size:1rem;
+        }
+        input:focus {
+            border-color:#0c5db3;
+            outline:none;
+            background:#f2f9ff;
+        }
+        button {
+            width:100%;
+            padding:16px;
+            border:none;
+            font-size:1.2rem;
+            font-weight:800;
+            border-radius:14px;
+            background:linear-gradient(135deg,#1b78d6,#0c5db3);
+            color:white;
+            cursor:pointer;
+            box-shadow:0 8px 20px rgba(27,120,214,.4);
+        }
+        button:hover {
+            background:linear-gradient(135deg,#104c72,#063964);
+        }
+        p.msg {
+            text-align:center;
+            margin-top:12px;
+            font-weight:700;
+            color:#b71c1c;
+        }
+        a {
+            display:block;
+            text-align:center;
+            margin-top:18px;
+            font-weight:700;
+            color:#0c5db3;
+            text-decoration:none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Student Registration</h2>
+    <form method="POST">
+        <input type="text" name="name" placeholder="Full Name" required>
+        <input type="text" name="roll_number" placeholder="Roll Number" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="text" name="phone" placeholder="Phone Number" required>
+        <button type="submit">Register</button>
+    </form>
+    <p class="msg">{{ msg }}</p>
+    <a href="/login">Back to Login</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: #f5f8ff;
+        }
+        .split-container {
+            display: grid;
+            grid-template-columns: 260px auto;
+            height: 100vh;
+        }
+        /* LEFT NAV */
+        .left-nav {
+            background: linear-gradient(135deg, #1b78d6, #1558a8);
+            padding: 40px 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 35px;
+            color: white;
+        }
+        .left-nav h2 {
+            font-size: 26px;
+            font-weight: 900;
+            margin: 0 0 20px;
+        }
+        .nav-item {
+            font-size: 15px;
+            font-weight: 700;
+        }
+        .nav-item a {
+            color: white;
+            text-decoration: none;
+        }
+        .nav-item a:hover {
+            text-decoration: underline;
+        }
+
+        .right-area {
+            padding: 40px 50px;
+            overflow-y: auto;
+            color: #111;
+        }
+        .section-title {
+            font-size: 25px;
+            font-weight: 800;
+            margin-bottom: 22px;
+            color: #0b3e74;
+        }
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 10px;
+            font-weight: 600;
+            color: #111;
+            font-size: 15px;
+        }
+        th, td {
+            text-align: center;
+            padding: 15px 0;
+            background: #e7f2ff;
+            border-radius: 8px;
+        }
+        th {
+            background-color: #1b78d6;
+            color: white;
+            text-transform: uppercase;
+        }
+
+        a.action-btn {
+            font-weight: 700;
+            padding: 8px 18px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: white;
+        }
+        .approve-btn { background:#1c7c38; }
+        .approve-btn:hover { background:#115423; }
+        .reject-btn { background:#b02929; }
+        .reject-btn:hover { background:#7a1616; }
+
+    </style>
+</head>
+
+<body>
+<div class="split-container">
+
+    <div class="left-nav">
+        <h2>Admin Panel</h2>
+        <div class="nav-item"><a href="/admin_dashboard">Dashboard</a></div>
+        <div class="nav-item"><a href="/logout">Logout</a></div>
+    </div>
+
+    <div class="right-area">
+
+        <div class="section-title">Pending Teacher Approvals</div>
+
+        {% if pending_teachers and pending_teachers|length > 0 %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Approve</th>
+                    <th>Reject</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for t in pending_teachers %}
+                <tr>
+                    <td>{{ t.username }}</td>
+                    <td><a href="/approve_teacher/{{ t.id }}" class="action-btn approve-btn">Approve</a></td>
+                    <td><a href="/reject_teacher/{{ t.id }}" class="action-btn reject-btn">Reject</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p style="font-weight:700;color:#555;">No pending teacher approvals.</p>
+        {% endif %}
+
+    </div>
+
+</div>
+</body>
+</html>

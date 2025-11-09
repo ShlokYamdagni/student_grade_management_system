@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pid
+
+# Virtual env
+venv/
+.env/
+.venv/
+
+# SQLite DB and instance files
+database.db
+instance/
+*.sqlite3
+
+# IDE/editor noise
+.vscode/
+.idea/
+
+# OS crap
+.DS_Store
+Thumbs.db

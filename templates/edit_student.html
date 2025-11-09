@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Edit Student</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+    body{
+        margin:0;
+        font-family:'Poppins',sans-serif;
+        background:linear-gradient(135deg,#e3f5fe 0%,#d0e6f9 100%);
+        display:flex;
+        justify-content:center;
+        align-items:flex-start;
+        padding-top:50px;
+        min-height:100vh;
+    }
+    .card{
+        width:520px;
+        background:#ffffff;
+        padding:35px 40px;
+        border-radius:20px;
+        box-shadow:0 10px 38px rgba(0,0,0,0.12);
+    }
+    h2{
+        margin:0 0 22px 0;
+        font-size:26px;
+        font-weight:800;
+        color:#0b4c6a;
+        text-align:center;
+    }
+    input{
+        width:100%;
+        padding:13px 14px;
+        margin-bottom:18px;
+        border:2px solid #b8d8f9;
+        border-radius:12px;
+        font-size:15px;
+    }
+    .subject-row{
+        display:flex;
+        gap:14px;
+        margin-bottom:14px;
+        align-items:center;
+        font-weight:600;
+    }
+    .subject-row label{
+        min-width:120px;
+        font-size:14px;
+        color:#0c4c63;
+    }
+    .subject-row input{
+        flex:1;
+    }
+    button{
+        width:100%;
+        padding:15px 0;
+        background:linear-gradient(135deg,#0c5db3,#1d7ee3);
+        border:none;
+        border-radius:14px;
+        color:white;
+        font-weight:800;
+        font-size:17px;
+        cursor:pointer;
+        margin-top:12px;
+    }
+    button:hover{
+        background:linear-gradient(135deg,#0a4a92,#176cbb);
+    }
+    p{
+        text-align:center;
+        color:#d0312d;
+        font-weight:700;
+    }
+</style>
+</head>
+<body>
+<div class="card">
+<h2>Edit Student</h2>
+<form method="POST">
+
+    <input type="text" name="name" placeholder="Name" value="{{ student.name }}" required>
+    <input type="text" name="roll_number" placeholder="Roll Number" value="{{ student.roll_number }}" required>
+    <input type="password" name="password" placeholder="Password" value="{{ student.password }}" required>
+    <input type="email" name="email" placeholder="Email" value="{{ student.email }}" required>
+    <input type="text" name="phone" placeholder="Phone" value="{{ student.phone }}" required>
+
+    <div class="subject-row">
+        <label>Mathematics</label>
+        <input type="number" name="math_practical" placeholder="Practical (20)" value="{{ student.math_practical }}" min="0" max="20">
+        <input type="number" name="math_written" placeholder="Written (80)" value="{{ student.math_written }}" min="0" max="80">
+    </div>
+
+    <div class="subject-row">
+        <label>Physics</label>
+        <input type="number" name="physics_practical" placeholder="Practical (20)" value="{{ student.physics_practical }}" min="0" max="20">
+        <input type="number" name="physics_written" placeholder="Written (80)" value="{{ student.physics_written }}" min="0" max="80">
+    </div>
+
+    <div class="subject-row">
+        <label>Chemistry</label>
+        <input type="number" name="chemistry_practical" placeholder="Practical (20)" value="{{ student.chemistry_practical }}" min="0" max="20">
+        <input type="number" name="chemistry_written" placeholder="Written (80)" value="{{ student.chemistry_written }}" min="0" max="80">
+    </div>
+
+    <div class="subject-row">
+        <label>Computer Science</label>
+        <input type="number" name="cs_practical" placeholder="Practical (20)" value="{{ student.cs_practical }}" min="0" max="20">
+        <input type="number" name="cs_written" placeholder="Written (80)" value="{{ student.cs_written }}" min="0" max="80">
+    </div>
+
+    <div class="subject-row">
+        <label>Electronics</label>
+        <input type="number" name="electronics_practical" placeholder="Practical (20)" value="{{ student.electronics_practical }}" min="0" max="20">
+        <input type="number" name="electronics_written" placeholder="Written (80)" value="{{ student.electronics_written }}" min="0" max="80">
+    </div>
+
+    <button type="submit">Update Student</button>
+</form>
+
+<p>{{ msg }}</p>
+</div>
+</body>
+</html>

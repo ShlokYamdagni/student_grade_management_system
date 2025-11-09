@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: #f5f8ff;
+        }
+        .split-container {
+            display: grid;
+            grid-template-columns: 260px auto;
+            height: 100vh;
+        }
+        .left-nav {
+            background: linear-gradient(135deg, #1b78d6, #1558a8);
+            padding: 40px 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 35px;
+            color: white;
+        }
+        .left-nav h2 {
+            font-size: 26px;
+            font-weight: 900;
+            margin: 0 0 20px;
+        }
+        .nav-item {
+            font-size: 15px;
+            font-weight: 700;
+        }
+        .nav-item a {
+            color: white;
+            text-decoration: none;
+        }
+        .nav-item a:hover {
+            text-decoration: underline;
+        }
+        .right-area {
+            padding: 40px 50px;
+            overflow-y: auto;
+            color: #111;
+        }
+        .section-title {
+            font-size: 25px;
+            font-weight: 800;
+            margin-bottom: 22px;
+            color: #0b3e74;
+        }
+        .summary-box {
+            background: #e7f2ff;
+            border-radius: 12px;
+            padding: 22px;
+            font-weight: 700;
+            color: #0b3e74;
+            font-size: 17px;
+            margin-bottom: 35px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+        }
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 10px;
+            font-weight: 600;
+            color: #111;
+            font-size: 15px;
+        }
+        th, td {
+            text-align: center;
+            padding: 15px 0;
+            background: #e7f2ff;
+            border-radius: 8px;
+        }
+        th {
+            background-color: #1b78d6;
+            color: white;
+            text-transform: uppercase;
+        }
+        button {
+            padding: 14px 30px;
+            background: #1b78d6;
+            border: none;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 700;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background:#1558a8;
+        }
+        select {
+            padding: 10px 15px;
+            border-radius:10px;
+            border:1px solid #1b78d688;
+            font-size: 15px;
+        }
+        .recheck-box { margin-top:38px; }
+    </style>
+</head>
+
+<body>
+<div class="split-container">
+
+    <div class="left-nav">
+        <h2>Student Panel</h2>
+        <div class="nav-item"><a href="/student_dashboard">Dashboard</a></div>
+        <div class="nav-item"><a href="/logout">Logout</a></div>
+    </div>
+
+    <div class="right-area">
+
+        <div class="section-title">Overall Performance</div>
+        <div class="summary-box">
+            Percentage: {{ "%.2f"|format(student.percentage()) }}% &nbsp;&nbsp; • &nbsp;&nbsp; Grade: {{ student.grade() }}
+        </div>
+
+        <div class="section-title">Subjects & Marks</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Subject</th>
+                    <th>Practical (20)</th>
+                    <th>Written (80)</th>
+                    <th>Total (100)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Mathematics</td>
+                    <td>{{ student.math_practical }}</td>
+                    <td>{{ student.math_written }}</td>
+                    <td>{{ student.math_practical + student.math_written }}</td>
+                </tr>
+                <tr>
+                    <td>Physics</td>
+                    <td>{{ student.physics_practical }}</td>
+                    <td>{{ student.physics_written }}</td>
+                    <td>{{ student.physics_practical + student.physics_written }}</td>
+                </tr>
+                <tr>
+                    <td>Chemistry</td>
+                    <td>{{ student.chemistry_practical }}</td>
+                    <td>{{ student.chemistry_written }}</td>
+                    <td>{{ student.chemistry_practical + student.chemistry_written }}</td>
+                </tr>
+                <tr>
+                    <td>Computer Science</td>
+                    <td>{{ student.cs_practical }}</td>
+                    <td>{{ student.cs_written }}</td>
+                    <td>{{ student.cs_practical + student.cs_written }}</td>
+                </tr>
+                <tr>
+                    <td>Electronics</td>
+                    <td>{{ student.electronics_practical }}</td>
+                    <td>{{ student.electronics_written }}</td>
+                    <td>{{ student.electronics_practical + student.electronics_written }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="recheck-box">
+            <div class="section-title">Raise Rechecking Query</div>
+            <form method="POST" action="/recheck_query">
+                <select name="subject" required>
+                    <option value="">-- Select Subject --</option>
+                    <option value="Mathematics">Mathematics</option>
+                    <option value="Physics">Physics</option>
+                    <option value="Chemistry">Chemistry</option>
+                    <option value="Computer Science">Computer Science</option>
+                    <option value="Electronics">Electronics</option>
+                </select>
+                <button type="submit">Submit Query</button>
+            </form>
+        </div>
+
+    </div>
+
+</div>
+</body>
+</html>
